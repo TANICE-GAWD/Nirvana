@@ -51,8 +51,15 @@ def make_scenes(split, n_scenes, seed):
         enroll_rows, scene_rows = rows[:2], rows[2:8]
         others = [s for s in speakers if s != w]
         f_spk, t_spk = rng.choice(others, 2, replace=False)
-        f_rows = list(rng.permutation(speakers[f_spk]))[:6]
-        t_rows = list(rng.permutation(speakers[t_spk]))[:8]
+
+        def voices(main, k):
+            # main voice first; topped up with other non-wearer voices if it has few recordings
+            rows_ = list(rng.permutation(speakers[main]))
+            while len(rows_) < k:
+                rows_ += list(rng.permutation(speakers[rng.choice(others)]))
+            return rows_[:k]
+
+        f_rows, t_rows = voices(f_spk, 6), voices(t_spk, 8)
         pool_rows = [all_rows[j] for j in rng.choice(len(all_rows), 12, replace=False) if all_rows[j]["speaker"] != w]
         sc = scenes.build(
             [utt(r) for r in scene_rows],
