@@ -36,10 +36,10 @@ def _model():
 @torch.no_grad()
 def hush(x: np.ndarray) -> np.ndarray:
     """Enhance 16 kHz mono audio. Output is aligned with the input."""
+    model = _model()
     from libdf import DF, erb, erb_norm, unit_norm
     from model.dfnet_se import as_complex, as_real, get_norm_alpha
 
-    model = _model()
     cfg = model.config
     df = DF(sr=cfg.sr, fft_size=cfg.fft_size, hop_size=cfg.hop_size,
             nb_bands=cfg.nb_erb, min_nb_erb_freqs=cfg.min_nb_freqs)

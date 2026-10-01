@@ -81,12 +81,13 @@ def _active(track):
     return db > max(db.max() - 35.0, -70.0)
 
 
-def build(wearer, friend_utts, tv_utts, babble_pool, rng, cfg=SceneConfig()):
+def build(wearer, friend_utts, tv_utts, babble_pool, rng, enroll_utts=(), cfg=SceneConfig()):
     """wearer: list of dicts with 'headset', 'throat', 'forehead' arrays (16 kHz).
-    friend_utts / tv_utts: lists of headset arrays from other speakers."""
+    friend_utts / tv_utts: lists of headset arrays from other speakers.
+    enroll_utts: separate wearer utterances, rendered quietly at the pendant for enrollment."""
     max_len = int(cfg.max_s * SR)
     w_track, w_placed = _timeline([u["headset"] for u in wearer], rng, max_len)
-    f_track, _ = _timeline(friend_utts, rng, max_len, start=rng.uniform(0.5, 3.0))
+    f_track, f_placed = _timeline(friend_utts, rng, max_len, start=rng.uniform(0.5, 3.0))
     n = max(p[1] for p in w_placed) + int(0.5 * SR)
     n = min(max(n, int(10 * SR)), max_len)
     w_track, f_track = w_track[:n], f_track[:n]
@@ -98,7 +99,8 @@ def build(wearer, friend_utts, tv_utts, babble_pool, rng, cfg=SceneConfig()):
             b[a : a + len(seg)] += seg
         body[s] = b
     tv_on = rng.random() < cfg.tv_prob and len(tv_utts) > 0
-    t_track = _timeline(tv_utts, rng, n, gap=(0.1, 0.4))[0] if tv_on else np.zeros(n, np.float32)
+    t_track, t_placed = _timeline(tv_utts, rng, n, gap=(0.1, 0.4)) if tv_on else (np.zeros(n, np.float32), [])
+    f_placed = [p for p in f_placed if p[0] < n]
 
     room_dim = np.array([rng.uniform(4, 9), rng.uniform(3.5, 7), rng.uniform(2.6, 3.4)])
     rt60 = rng.uniform(0.2, 0.7)
@@ -107,7 +109,9 @@ def build(wearer, friend_utts, tv_utts, babble_pool, rng, cfg=SceneConfig()):
     chest = np.array([rng.uniform(1.0, room_dim[0] - 1.0), rng.uniform(1.0, room_dim[1] - 1.0), cfg.chest_height])
     half = np.array([0, 0, cfg.mic_spacing / 2])
     room.add_microphone_array(np.stack([chest + half, chest - half], axis=1))
-    mouth = chest + np.array(cfg.mouth_offset)
+    # the pendant hangs at a different spot on each wearer / each day
+    mouth = chest + np.array(cfg.mouth_offset) + np.array(
+        [rng.uniform(-0.02, 0.03), rng.uniform(-0.03, 0.03), rng.uniform(-0.03, 0.07)])
 
     def place(dist):
         for _ in range(100):
@@ -128,19 +132,30 @@ def build(wearer, friend_utts, tv_utts, babble_pool, rng, cfg=SceneConfig()):
         corner = np.array([rng.choice([0.3, room_dim[0] - 0.3]), rng.choice([0.3, room_dim[1] - 0.3]), rng.uniform(0.5, 2.5)])
         sources[f"noise{k}"] = (corner, nz)
 
+    if len(enroll_utts):
+        gap = np.zeros(int(0.3 * SR), np.float32)
+        sources["enroll"] = (mouth, np.concatenate([np.concatenate([u, gap]) for u in enroll_utts]))
+
     at_mic = {}
     for name, (pos, sig) in sources.items():
         r = pra.ShoeBox(room_dim, fs=SR, materials=pra.Material(absorption), max_order=min(max_order, 12))
         r.add_microphone_array(room.mic_array.R)
         r.add_source(pos, signal=sig)
         r.simulate()
+        if name == "enroll":
+            enroll_mic = r.mic_array.signals[0, : len(sig)].astype(np.float32)
+            continue
         at_mic[name] = r.mic_array.signals[:, :n].astype(np.float32)
 
     w_act, f_act, t_act = _active(w_track), _active(f_track), _active(t_track) if tv_on else None
     from .audio import HOP
 
     def mask(act):
-        return np.repeat(act, HOP)[:n] if act is not None else np.zeros(n, bool)
+        m = np.zeros(n, bool)
+        if act is not None:
+            r = np.repeat(act, HOP)[:n]
+            m[: len(r)] = r
+        return m
 
     w_m = mask(w_act)
     sir_f = rng.uniform(*cfg.friend_sir_db)
@@ -153,6 +168,10 @@ def build(wearer, friend_utts, tv_utts, babble_pool, rng, cfg=SceneConfig()):
     noise *= _scale_to(noise[0], at_mic["wearer"][0], snr, np.ones(n, bool), w_m)
     external = at_mic["friend"] + noise + (at_mic["tv"] if tv_on else 0)
     mics = at_mic["wearer"] + external
+    # cheap MEMS mics: per-unit gain mismatch and independent self-noise
+    mics[1] *= 10 ** (rng.uniform(-2.0, 2.0) / 20)
+    self_noise = rms(mics[0]) * 10 ** (-45 / 20)
+    mics = mics + rng.normal(0, self_noise, mics.shape).astype(np.float32)
     peak = np.abs(mics).max() + 1e-9
     mics, external, wearer_at_mic = mics / peak * 0.9, external / peak * 0.9, at_mic["wearer"] / peak * 0.9
 
@@ -171,7 +190,9 @@ def build(wearer, friend_utts, tv_utts, babble_pool, rng, cfg=SceneConfig()):
         "wearer_ref": wearer_at_mic[0].astype(np.float32),
         "throat": body["throat"], "forehead": body["forehead"],
         "wearer_active": w_act[:nf], "others_active": others,
+        "enroll": (enroll_mic / (np.abs(enroll_mic).max() + 1e-9) * 0.5) if len(enroll_utts) else np.zeros(0, np.float32),
         "meta": {"friend_sir_db": float(sir_f), "tv": bool(tv_on), "snr_db": float(snr),
                  "noise": noise_kind, "walking": bool(walking), "rt60": float(rt60),
-                 "friend_dist_m": float(friend_dist)},
+                 "friend_dist_m": float(friend_dist),
+                 "n_wearer": len(w_placed), "n_friend": len(f_placed), "n_tv": len(t_placed)},
     }
