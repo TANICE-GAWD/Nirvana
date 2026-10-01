@@ -49,7 +49,23 @@ voiceprint only and Only You.
 - **Coupling matters more than rate.** A poorly coupled sensor still helps (19.5% to 16% at 1 kHz,
   11% at 16 kHz), but how firmly the pendant rests on the chest decides most of the gain.
 
-<!-- WORDS -->
+### Does it change the transcript?
+
+Whisper-small (CPU) on 20 test scenes, worst-case forehead-like coupling. A word counts as leaked if
+the friend or TV said it and the wearer did not.
+
+| What gets transcribed | Other people's words per scene | Wearer's words recovered |
+|---|---|---|
+| Raw pendant mic | 1.9 | 57% |
+| Hush alone | 0.7 | 42% |
+| Voiceprint only (Hush audio) | 0.4 | 38% |
+| Only You (Hush audio) | 0.1 | 37% |
+| **Only You gate, raw mic audio in kept regions** | **0.5** | **52%** |
+
+Two takeaways. First, use the gate to decide *what* to keep, but send the raw audio of those regions
+to speech recognition: speech enhancement before ASR costs about 15 points of the wearer's words.
+Second, word counts here are small because Whisper-small on noisy, reverberant French already drops
+much of the background speech by itself; the frame-level numbers above are the more reliable measure.
 
 ## The idea: feel the voice, don't just hear it
 
