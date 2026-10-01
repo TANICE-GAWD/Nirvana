@@ -40,7 +40,8 @@ def main():
     set_vibration(train, args.sensor, args.rate, False)
     set_vibration(test, args.sensor, args.rate, False)
     gates = {g: Gate(SYSTEMS[g]).fit([s["feats"] for s in train], [s["wearer"] for s in train]) for g in GATED}
-    names = ["No filter", "Hush alone"] + GATED
+    RAW_KEPT = "Only You, raw mic audio in kept regions"
+    names = ["No filter", "Hush alone"] + GATED + [RAW_KEPT]
     totals = {k: {"leaked": 0, "wearer_hit": 0} for k in names}
     wearer_total = 0
     examples = []
@@ -50,6 +51,7 @@ def main():
         outs = {"No filter": top, "Hush alone": enhanced}
         for g, gate in gates.items():
             outs[g] = apply_gate(enhanced, gate.decide([sc["feats"]])[0])
+        outs[RAW_KEPT] = apply_gate(top, gates[GATED[-1]].decide([sc["feats"]])[0], hangover=6)
         w_set = set(words(" ".join(sc["meta"]["wearer_texts"])))
         o_set = set(words(" ".join(sc["meta"]["other_texts"]))) - w_set
         wearer_total += len(w_set)

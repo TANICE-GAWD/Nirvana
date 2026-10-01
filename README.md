@@ -11,7 +11,45 @@ has to solve:
    *loudest* voice. On a necklace the loudest voice is often a friend across the table or the TV.
 2. **Grounded memory.** Journals and insights must come from what the wearer actually said.
 
-<!-- RESULTS -->
+## Results
+
+**Hush alone lets 55% of other people's speech through. Only You lets 6% through**, at the same 90%
+of the wearer's speech kept. With a worst-case, poorly coupled vibration sensor it is 16%.
+
+![What each system keeps in a scene where the friend is 6 dB louder than the wearer](results/demo_timeline.png)
+
+40 test scenes, speakers never seen in training, IMU at 1 kHz with a standard anti-alias filter:
+
+| System | Wearer speech kept | Others' speech leaked (95% CI) | Leaked when friend is louder than wearer | False triggers on noise |
+|---|---|---|---|---|
+| No filter (any speech) | 93.9% | **69.9%** (63-77%) | 78.9% | 18.1% |
+| Hush alone | 91.5% | **54.8%** (48-63%) | 66.4% | 13.4% |
+| Voiceprint only | 90.2% | **38.0%** (33-44%) | 43.8% | 15.9% |
+| Two mics only | 92.5% | **23.8%** (19-29%) | 27.8% | 12.0% |
+| Voiceprint + two mics (no vibration) | 91.9% | **19.5%** (16-24%) | 21.3% | 9.3% |
+| Vibration only, throat-like coupling | 89.5% | **8.3%** (7-10%) | 12.8% | 4.5% |
+| **Only You, throat-like coupling** | 90.7% | **5.9%** (5-8%) | 7.2% | 3.3% |
+| Vibration only, forehead-like coupling | 91.2% | **44.6%** (40-50%) | 54.1% | 13.0% |
+| **Only You, forehead-like coupling** | 91.1% | **16.0%** (13-19%) | 16.0% | 8.0% |
+
+Listen to the scene above: [`results/demo/`](results/demo/) has the raw pendant mic, Hush alone,
+voiceprint only and Only You.
+
+### How slow can the IMU be?
+
+![Leakage vs IMU sample rate](results/imu_rate_sweep.png)
+
+- **1 kHz is enough.** With good body coupling, leakage stays at 5-6% from 16 kHz down to 1 kHz.
+- **Below 500 Hz, a standard IMU filter throws the voice away.** Speech vibration (roughly 85-255 Hz
+  pitch and its harmonics) sits above the Nyquist limit, so the anti-alias filter removes it: leakage
+  climbs to 16-18%, close to having no vibration at all (19.5%).
+- **Turning that filter off keeps most of the benefit at low rates.** Without it, voice energy folds
+  into the low band instead of being removed: 7.7% leakage at 250 Hz and 10% at 100 Hz. Many MEMS
+  IMUs let firmware bypass the digital low-pass filter.
+- **Coupling matters more than rate.** A poorly coupled sensor still helps (19.5% to 16% at 1 kHz,
+  11% at 16 kHz), but how firmly the pendant rests on the chest decides most of the gain.
+
+<!-- WORDS -->
 
 ## The idea: feel the voice, don't just hear it
 

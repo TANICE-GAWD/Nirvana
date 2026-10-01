@@ -1,0 +1,146 @@
+{
+  "No filter (any speech)": {
+    "wearer_recall": 0.9385184776003977,
+    "leakage": 0.6987993938687492,
+    "false_triggers": 0.1810596579057155,
+    "frames_wearer": 18103,
+    "frames_others_only": 8579,
+    "leakage_ci95": [
+      0.6303798005947359,
+      0.7718298395086466
+    ],
+    "leakage_by_condition": {
+      "friend louder than wearer": 0.788645038167939,
+      "friend 0-6 dB quieter": 0.7352855900260945,
+      "friend 6+ dB quieter": 0.5952537903757416
+    }
+  },
+  "Hush alone": {
+    "wearer_recall": 0.9153179031099817,
+    "leakage": 0.5481990908031239,
+    "false_triggers": 0.13412599082186066,
+    "frames_wearer": 18103,
+    "frames_others_only": 8579,
+    "leakage_ci95": [
+      0.47653684589544987,
+      0.6282028545430643
+    ],
+    "leakage_by_condition": {
+      "friend louder than wearer": 0.6641221374045801,
+      "friend 0-6 dB quieter": 0.639025804581038,
+      "friend 6+ dB quieter": 0.36486486486486486
+    }
+  },
+  "Voiceprint only": {
+    "wearer_recall": 0.9019499530464564,
+    "leakage": 0.379531413917706,
+    "false_triggers": 0.15936587400917815,
+    "frames_wearer": 18103,
+    "frames_others_only": 8579,
+    "leakage_ci95": [
+      0.3263990351273547,
+      0.4390194362497893
+    ],
+    "leakage_by_condition": {
+      "friend louder than wearer": 0.43845419847328243,
+      "friend 0-6 dB quieter": 0.3902580458103798,
+      "friend 6+ dB quieter": 0.3266315095583388
+    }
+  },
+  "Two mics only": {
+    "wearer_recall": 0.9248743302215102,
+    "leakage": 0.23778995220888216,
+    "false_triggers": 0.11973299958281185,
+    "frames_wearer": 18103,
+    "frames_others_only": 8579,
+    "leakage_ci95": [
+      0.19128491641802894,
+      0.2937227230711565
+    ],
+    "leakage_by_condition": {
+      "friend louder than wearer": 0.27814885496183206,
+      "friend 0-6 dB quieter": 0.24151928095100028,
+      "friend 6+ dB quieter": 0.20566908371786422
+    }
+  },
+  "Vibration only [throat-like]": {
+    "wearer_recall": 0.8952659780146937,
+    "leakage": 0.08252710106072969,
+    "false_triggers": 0.04505632040050062,
+    "frames_wearer": 18103,
+    "frames_others_only": 8579,
+    "leakage_ci95": [
+      0.06554806601736071,
+      0.10238459960462515
+    ],
+    "leakage_by_condition": {
+      "friend louder than wearer": 0.12833969465648856,
+      "friend 0-6 dB quieter": 0.07335459553493766,
+      "friend 6+ dB quieter": 0.061305207646671064
+    }
+  },
+  "Voiceprint + two mics (no vibration)": {
+    "wearer_recall": 0.9194608628404132,
+    "leakage": 0.19477794614756966,
+    "false_triggers": 0.09282436378806842,
+    "frames_wearer": 18103,
+    "frames_others_only": 8579,
+    "leakage_ci95": [
+      0.1579471988376081,
+      0.2356491497429455
+    ],
+    "leakage_by_condition": {
+      "friend louder than wearer": 0.21278625954198474,
+      "friend 0-6 dB quieter": 0.20585677007828357,
+      "friend 6+ dB quieter": 0.16974291364535268
+    }
+  },
+  "Only You (vibration + two mics + voiceprint) [throat-like]": {
+    "wearer_recall": 0.9073081809644811,
+    "leakage": 0.05933092435015736,
+    "false_triggers": 0.03295786399666249,
+    "frames_wearer": 18103,
+    "frames_others_only": 8579,
+    "leakage_ci95": [
+      0.04556715893138177,
+      0.07733133013935575
+    ],
+    "leakage_by_condition": {
+      "friend louder than wearer": 0.07204198473282443,
+      "friend 0-6 dB quieter": 0.05363873586546825,
+      "friend 6+ dB quieter": 0.05702043506921556
+    }
+  },
+  "Vibration only [forehead-like]": {
+    "wearer_recall": 0.912058774788709,
+    "leakage": 0.44585616039165404,
+    "false_triggers": 0.1295369211514393,
+    "frames_wearer": 18103,
+    "frames_others_only": 8579,
+    "leakage_ci95": [
+      0.3980743929121634,
+      0.4972537714526444
+    ],
+    "leakage_by_condition": {
+      "friend louder than wearer": 0.541030534351145,
+      "friend 0-6 dB quieter": 0.4383879385329081,
+      "friend 6+ dB quieter": 0.38859591298615687
+    }
+  },
+  "Only You (vibration + two mics + voiceprint) [forehead-like]": {
+    "wearer_recall": 0.9112854223056952,
+    "leakage": 0.16039165403893227,
+    "false_triggers": 0.07989153108051732,
+    "frames_wearer": 18103,
+    "frames_others_only": 8579,
+    "leakage_ci95": [
+      0.1309047902185758,
+      0.1922139598653587
+    ],
+    "leakage_by_condition": {
+      "friend louder than wearer": 0.15982824427480916,
+      "friend 0-6 dB quieter": 0.1713540156567121,
+      "friend 6+ dB quieter": 0.14831905075807514
+    }
+  }
+}

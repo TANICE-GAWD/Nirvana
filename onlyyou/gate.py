@@ -25,6 +25,7 @@ SYSTEMS = {
     "Voiceprint only": ["vad", "hush", "voiceprint"],
     "Two mics only": ["vad", "mics"],
     "Vibration only": ["vad", "vibration"],
+    "Voiceprint + two mics (no vibration)": ["vad", "hush", "voiceprint", "mics"],
     "Only You (vibration + two mics + voiceprint)": ["vad", "hush", "voiceprint", "mics", "vibration"],
 }
 

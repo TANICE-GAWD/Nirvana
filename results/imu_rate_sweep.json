@@ -1,0 +1,418 @@
+[
+  {
+    "sensor": "throat",
+    "aliased": false,
+    "rate": 16000,
+    "system": "Vibration only",
+    "leakage": 0.058981233243967826,
+    "wearer_recall": 0.8986355852621113
+  },
+  {
+    "sensor": "throat",
+    "aliased": false,
+    "rate": 16000,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.0508217740995454,
+    "wearer_recall": 0.9077500966690604
+  },
+  {
+    "sensor": "throat",
+    "aliased": false,
+    "rate": 4000,
+    "system": "Vibration only",
+    "leakage": 0.0726191863853596,
+    "wearer_recall": 0.9009004032480804
+  },
+  {
+    "sensor": "throat",
+    "aliased": false,
+    "rate": 4000,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.05070521039748222,
+    "wearer_recall": 0.9041595315693531
+  },
+  {
+    "sensor": "throat",
+    "aliased": false,
+    "rate": 2000,
+    "system": "Vibration only",
+    "leakage": 0.0762326611493181,
+    "wearer_recall": 0.8996851350604872
+  },
+  {
+    "sensor": "throat",
+    "aliased": false,
+    "rate": 2000,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.054784939969693434,
+    "wearer_recall": 0.9048776445892945
+  },
+  {
+    "sensor": "throat",
+    "aliased": false,
+    "rate": 1000,
+    "system": "Vibration only",
+    "leakage": 0.08252710106072969,
+    "wearer_recall": 0.8952659780146937
+  },
+  {
+    "sensor": "throat",
+    "aliased": false,
+    "rate": 1000,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.05933092435015736,
+    "wearer_recall": 0.9073081809644811
+  },
+  {
+    "sensor": "throat",
+    "aliased": false,
+    "rate": 500,
+    "system": "Vibration only",
+    "leakage": 0.141158643198508,
+    "wearer_recall": 0.9118930563994918
+  },
+  {
+    "sensor": "throat",
+    "aliased": false,
+    "rate": 500,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.08800559505769903,
+    "wearer_recall": 0.9203999337126443
+  },
+  {
+    "sensor": "throat",
+    "aliased": false,
+    "rate": 250,
+    "system": "Vibration only",
+    "leakage": 0.4569297120876559,
+    "wearer_recall": 0.9095177594873778
+  },
+  {
+    "sensor": "throat",
+    "aliased": false,
+    "rate": 250,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.15992539923067955,
+    "wearer_recall": 0.9190189471358339
+  },
+  {
+    "sensor": "throat",
+    "aliased": false,
+    "rate": 100,
+    "system": "Vibration only",
+    "leakage": 0.5993705560088588,
+    "wearer_recall": 0.9112301828426228
+  },
+  {
+    "sensor": "throat",
+    "aliased": false,
+    "rate": 100,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.1800909196876093,
+    "wearer_recall": 0.9136607192178092
+  },
+  {
+    "sensor": "throat",
+    "aliased": true,
+    "rate": 4000,
+    "system": "Vibration only",
+    "leakage": 0.06376034502855811,
+    "wearer_recall": 0.9022261503618185
+  },
+  {
+    "sensor": "throat",
+    "aliased": true,
+    "rate": 4000,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.049189882270660915,
+    "wearer_recall": 0.9046014472739325
+  },
+  {
+    "sensor": "throat",
+    "aliased": true,
+    "rate": 2000,
+    "system": "Vibration only",
+    "leakage": 0.06341065392236857,
+    "wearer_recall": 0.9022813898248909
+  },
+  {
+    "sensor": "throat",
+    "aliased": true,
+    "rate": 2000,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.051171465205734935,
+    "wearer_recall": 0.905319560293874
+  },
+  {
+    "sensor": "throat",
+    "aliased": true,
+    "rate": 1000,
+    "system": "Vibration only",
+    "leakage": 0.0658584916656953,
+    "wearer_recall": 0.8973650776114456
+  },
+  {
+    "sensor": "throat",
+    "aliased": true,
+    "rate": 1000,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.052220538524303535,
+    "wearer_recall": 0.9056509970723085
+  },
+  {
+    "sensor": "throat",
+    "aliased": true,
+    "rate": 500,
+    "system": "Vibration only",
+    "leakage": 0.08054551812565568,
+    "wearer_recall": 0.8997956139866321
+  },
+  {
+    "sensor": "throat",
+    "aliased": true,
+    "rate": 500,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.0565333955006411,
+    "wearer_recall": 0.9057062365353808
+  },
+  {
+    "sensor": "throat",
+    "aliased": true,
+    "rate": 250,
+    "system": "Vibration only",
+    "leakage": 0.10502389555892296,
+    "wearer_recall": 0.900845163785008
+  },
+  {
+    "sensor": "throat",
+    "aliased": true,
+    "rate": 250,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.07658235225550764,
+    "wearer_recall": 0.9069767441860465
+  },
+  {
+    "sensor": "throat",
+    "aliased": true,
+    "rate": 100,
+    "system": "Vibration only",
+    "leakage": 0.1499009208532463,
+    "wearer_recall": 0.8940507098271004
+  },
+  {
+    "sensor": "throat",
+    "aliased": true,
+    "rate": 100,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.10234293041146987,
+    "wearer_recall": 0.9022813898248909
+  },
+  {
+    "sensor": "forehead",
+    "aliased": false,
+    "rate": 16000,
+    "system": "Vibration only",
+    "leakage": 0.1711155146287446,
+    "wearer_recall": 0.9105673092857537
+  },
+  {
+    "sensor": "forehead",
+    "aliased": false,
+    "rate": 16000,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.10747173330224968,
+    "wearer_recall": 0.9039938131801359
+  },
+  {
+    "sensor": "forehead",
+    "aliased": false,
+    "rate": 4000,
+    "system": "Vibration only",
+    "leakage": 0.2235691805571745,
+    "wearer_recall": 0.9109539855272607
+  },
+  {
+    "sensor": "forehead",
+    "aliased": false,
+    "rate": 4000,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.11924466721063061,
+    "wearer_recall": 0.9119482958625642
+  },
+  {
+    "sensor": "forehead",
+    "aliased": false,
+    "rate": 2000,
+    "system": "Vibration only",
+    "leakage": 0.2676302599370556,
+    "wearer_recall": 0.9158702977407059
+  },
+  {
+    "sensor": "forehead",
+    "aliased": false,
+    "rate": 2000,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.13066791001282202,
+    "wearer_recall": 0.9126111694194332
+  },
+  {
+    "sensor": "forehead",
+    "aliased": false,
+    "rate": 1000,
+    "system": "Vibration only",
+    "leakage": 0.44585616039165404,
+    "wearer_recall": 0.912058774788709
+  },
+  {
+    "sensor": "forehead",
+    "aliased": false,
+    "rate": 1000,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.16039165403893227,
+    "wearer_recall": 0.9112854223056952
+  },
+  {
+    "sensor": "forehead",
+    "aliased": false,
+    "rate": 500,
+    "system": "Vibration only",
+    "leakage": 0.5722112134281385,
+    "wearer_recall": 0.9145445506269679
+  },
+  {
+    "sensor": "forehead",
+    "aliased": false,
+    "rate": 500,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.16831798577922835,
+    "wearer_recall": 0.9138816770700989
+  },
+  {
+    "sensor": "forehead",
+    "aliased": false,
+    "rate": 250,
+    "system": "Vibration only",
+    "leakage": 0.6409837976454132,
+    "wearer_recall": 0.9187979892835442
+  },
+  {
+    "sensor": "forehead",
+    "aliased": false,
+    "rate": 250,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.18475346777013638,
+    "wearer_recall": 0.9150969452576921
+  },
+  {
+    "sensor": "forehead",
+    "aliased": false,
+    "rate": 100,
+    "system": "Vibration only",
+    "leakage": 0.6542720596806154,
+    "wearer_recall": 0.9171960448544441
+  },
+  {
+    "sensor": "forehead",
+    "aliased": false,
+    "rate": 100,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.19233010840424292,
+    "wearer_recall": 0.9198475390819201
+  },
+  {
+    "sensor": "forehead",
+    "aliased": true,
+    "rate": 4000,
+    "system": "Vibration only",
+    "leakage": 0.18218906632474646,
+    "wearer_recall": 0.9097939568027399
+  },
+  {
+    "sensor": "forehead",
+    "aliased": true,
+    "rate": 4000,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.11434899172397715,
+    "wearer_recall": 0.9043252499585704
+  },
+  {
+    "sensor": "forehead",
+    "aliased": true,
+    "rate": 2000,
+    "system": "Vibration only",
+    "leakage": 0.20352022380230797,
+    "wearer_recall": 0.9096834778765951
+  },
+  {
+    "sensor": "forehead",
+    "aliased": true,
+    "rate": 2000,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.11749621167968295,
+    "wearer_recall": 0.9067557863337569
+  },
+  {
+    "sensor": "forehead",
+    "aliased": true,
+    "rate": 1000,
+    "system": "Vibration only",
+    "leakage": 0.2940902203053969,
+    "wearer_recall": 0.9092968016350881
+  },
+  {
+    "sensor": "forehead",
+    "aliased": true,
+    "rate": 1000,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.1436064809418347,
+    "wearer_recall": 0.9079158150582777
+  },
+  {
+    "sensor": "forehead",
+    "aliased": true,
+    "rate": 500,
+    "system": "Vibration only",
+    "leakage": 0.4301200606131251,
+    "wearer_recall": 0.9089101253935812
+  },
+  {
+    "sensor": "forehead",
+    "aliased": true,
+    "rate": 500,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.15852663480592144,
+    "wearer_recall": 0.91139590123184
+  },
+  {
+    "sensor": "forehead",
+    "aliased": true,
+    "rate": 250,
+    "system": "Vibration only",
+    "leakage": 0.5551929129269145,
+    "wearer_recall": 0.9123902115671436
+  },
+  {
+    "sensor": "forehead",
+    "aliased": true,
+    "rate": 250,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.17134864203287095,
+    "wearer_recall": 0.916533171297575
+  },
+  {
+    "sensor": "forehead",
+    "aliased": true,
+    "rate": 100,
+    "system": "Vibration only",
+    "leakage": 0.6607996269961534,
+    "wearer_recall": 0.9319449814947799
+  },
+  {
+    "sensor": "forehead",
+    "aliased": true,
+    "rate": 100,
+    "system": "Only You (vibration + two mics + voiceprint)",
+    "leakage": 0.18813381512996852,
+    "wearer_recall": 0.9181351157266752
+  }
+]

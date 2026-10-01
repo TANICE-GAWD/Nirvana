@@ -48,6 +48,12 @@ def run(system, train, test):
     gate = Gate(cues).fit([s["feats"] for s in train], [s["wearer"] for s in train])
     dec = gate.decide([s["feats"] for s in test])
     res = metrics(dec, [s["wearer"] for s in test], [s["others"] for s in test])
+    # 95% interval for leakage by resampling whole test scenes
+    passed = np.array([(d & s["others"] & ~s["wearer"]).sum() for d, s in zip(dec, test)])
+    total = np.array([(s["others"] & ~s["wearer"]).sum() for s in test])
+    rng = np.random.default_rng(0)
+    boots = [passed[i].sum() / max(total[i].sum(), 1) for i in rng.integers(0, len(test), (1000, len(test)))]
+    res["leakage_ci95"] = [float(np.percentile(boots, 2.5)), float(np.percentile(boots, 97.5))]
     buckets = {"friend louder than wearer": lambda m: m["friend_sir_db"] < 0,
                "friend 0-6 dB quieter": lambda m: 0 <= m["friend_sir_db"] < 6,
                "friend 6+ dB quieter": lambda m: m["friend_sir_db"] >= 6}
@@ -90,8 +96,9 @@ def plot_sweep(rows, baselines, path):
         if pts:
             label = f"Only You, {sensor}-like coupling, {'no anti-alias filter' if aliased else 'standard IMU filter'}"
             ax.plot(*zip(*pts), color=color, ls=ls, marker="o", label=label)
-    for name, color in (("Voiceprint only", "gray"), ("Hush alone", "black")):
-        ax.axhline(baselines[name], color=color, ls=":", label=f"{name} (no vibration)")
+    for name, color in (("Hush alone", "black"), ("Voiceprint only", "gray"),
+                        ("Voiceprint + two mics (no vibration)", "tab:green")):
+        ax.axhline(baselines[name], color=color, ls=":", label=name)
     ax.set_xscale("log")
     ax.set_xticks(RATES)
     ax.set_xticklabels([f"{r // 1000}k" if r >= 1000 else str(r) for r in RATES])
@@ -129,11 +136,13 @@ def main():
             key = f"{system} [{sensor}-like]" if uses_vib else system
             table[key] = run(system, train, test)[0]
 
-    lines = ["| System | Wearer speech kept | Others' speech leaked | Leaked when friend is louder | False triggers on noise |",
+    lines = ["| System | Wearer speech kept | Others' speech leaked (95% CI) | Leaked when friend is louder | False triggers on noise |",
              "|---|---|---|---|---|"]
     for name, r in table.items():
         louder = r["leakage_by_condition"].get("friend louder than wearer", float("nan"))
-        lines.append(f"| {name} | {pct(r['wearer_recall'])} | {pct(r['leakage'])} | {pct(louder)} | {pct(r['false_triggers'])} |")
+        lo, hi = r["leakage_ci95"]
+        lines.append(f"| {name} | {pct(r['wearer_recall'])} | **{pct(r['leakage'])}** ({100 * lo:.0f}-{100 * hi:.0f}%) "
+                     f"| {pct(louder)} | {pct(r['false_triggers'])} |")
     md = "\n".join(lines)
     print(md)
     (RESULTS / "leakage_table.md").write_text(
@@ -144,7 +153,8 @@ def main():
     if not args.skip_sweep:
         rows = sweep(train, test)
         (RESULTS / "imu_rate_sweep.json").write_text(json.dumps(rows, indent=2))
-        baselines = {k: 100 * table[k]["leakage"] for k in ("Voiceprint only", "Hush alone")}
+        baselines = {k: 100 * table[k]["leakage"]
+                     for k in ("Hush alone", "Voiceprint only", "Voiceprint + two mics (no vibration)")}
         plot_sweep(rows, baselines, RESULTS / "imu_rate_sweep.png")
         print("saved", RESULTS / "imu_rate_sweep.png")
 
