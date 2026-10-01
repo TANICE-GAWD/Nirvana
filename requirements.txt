@@ -1,0 +1,18 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.5.1+cpu
+torchaudio==2.5.1+cpu
+numpy
+scipy
+soundfile
+sounddevice
+scikit-learn
+pyroomacoustics
+speechbrain
+DeepFilterLib
+silero-vad
+faster-whisper
+huggingface_hub
+pyarrow
+matplotlib
+tqdm
+pytest

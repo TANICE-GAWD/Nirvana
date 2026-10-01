@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+data/
+models/
+logs/
+third_party/
+recordings/
+results/cache/
+.cursor/

@@ -1,0 +1,9 @@
+[project]
+name = "onlyyou"
+version = "0.1.0"
+description = "Wearer-only voice gating for an always-on AI pendant"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
