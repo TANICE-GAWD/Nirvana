@@ -1,6 +1,7 @@
 """Wearer-only transcript -> moments -> journal where every line cites its moments.
 
-If ANTHROPIC_API_KEY or OPENAI_API_KEY is set, an LLM writes the journal; otherwise a
+If ANTHROPIC_API_KEY, OPENAI_API_KEY or CURSOR_API_KEY (needs `pip install cursor-sdk`)
+is set, an LLM writes the journal; otherwise a
 simple extractive journal is produced. Either way `check_grounding` verifies that every
 line cites real moments and that its content words actually appear in them.
 """
@@ -66,6 +67,16 @@ def _llm(prompt):
         req = urllib.request.Request("https://api.openai.com/v1/chat/completions", json.dumps(body).encode(), {
             "authorization": f"Bearer {os.environ['OPENAI_API_KEY']}", "content-type": "application/json"})
         return json.load(urllib.request.urlopen(req, timeout=60))["choices"][0]["message"]["content"]
+    if os.environ.get("CURSOR_API_KEY"):
+        import tempfile
+        from cursor_sdk import Agent, AgentOptions, LocalAgentOptions
+        with tempfile.TemporaryDirectory() as empty:  # the agent gets no files to touch
+            result = Agent.prompt(prompt, AgentOptions(
+                api_key=os.environ["CURSOR_API_KEY"], model=os.environ.get("ONLYYOU_LLM_MODEL", "composer-2.5"),
+                local=LocalAgentOptions(cwd=empty)))
+        if result.error_message:
+            raise RuntimeError(result.error_message)
+        return result.result
     return None
 
 

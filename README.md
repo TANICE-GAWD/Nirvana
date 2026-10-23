@@ -135,6 +135,9 @@ python scripts/live_demo.py live   --mic "Digital Microphone"   # Ctrl+C: saves 
 python scripts/live_demo.py process street.wav                  # any recording
 ```
 
+The journal is written by an LLM if `ANTHROPIC_API_KEY`, `OPENAI_API_KEY` or `CURSOR_API_KEY`
+(plus `pip install cursor-sdk`) is set; otherwise it quotes the wearer's own words.
+
 ### Real-world earbud comparison
 
 Compare against the OnePlus Nord Buds 3's built-in call noise cancellation: you read a script while
