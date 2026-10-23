@@ -1,7 +1,7 @@
 """Wearer-only transcript -> moments -> journal where every line cites its moments.
 
 If ANTHROPIC_API_KEY, OPENAI_API_KEY or CURSOR_API_KEY (needs `pip install cursor-sdk`)
-is set, an LLM writes the journal; otherwise a
+is set (in the environment or in .env), an LLM writes the journal; otherwise a
 simple extractive journal is produced. Either way `check_grounding` verifies that every
 line cites real moments and that its content words actually appear in them.
 """
@@ -11,6 +11,14 @@ import os
 import re
 import urllib.request
 from dataclasses import asdict, dataclass
+from pathlib import Path
+
+_ENV = Path(__file__).resolve().parent.parent / ".env"
+if _ENV.exists():
+    for _line in _ENV.read_text().splitlines():
+        _key, _sep, _val = _line.removeprefix("export ").partition("=")
+        if _sep and not _key.strip().startswith("#"):
+            os.environ.setdefault(_key.strip(), _val.strip().strip("'\""))
 
 STOP = set("""the a an and or but if then so of to in on at for with from by is are was were be been
 it this that these those i you he she we they me my your our their as about just really very not no
@@ -47,7 +55,8 @@ PROMPT = """You are writing a short private journal for the person wearing an AI
 Below are moments: things the wearer said today, with ids and timestamps.
 Write at most 6 journal lines in second person ("You ..."). Every line must end with the ids
 of the moments it is based on, like [m2] or [m1][m3]. Do not state anything that is not
-supported by the cited moments. No headings, no preamble.
+supported by the cited moments. Reuse the wearer's own words; one line per distinct point;
+do not guess at feelings or add commentary. No headings, no preamble.
 
 Moments:
 {moments}"""
