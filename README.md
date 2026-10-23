@@ -144,7 +144,7 @@ Compare against the OnePlus Nord Buds 3's built-in call noise cancellation: you 
 the laptop speaker plays another voice with known transcripts.
 
 ```bash
-python scripts/live_demo.py enroll --mic "Digital Microphone" --buds "Nord Buds 3-95"
+python scripts/live_demo.py enroll --mic "Digital Microphone" --buds "Nord Buds 3"
 python scripts/nordbuds_bench.py record
 python scripts/nordbuds_bench.py score   # -> results/nordbuds_benchmark.md
 ```

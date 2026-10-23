@@ -5,7 +5,7 @@ known transcripts). The earbud mic (already processed by the buds) and the lapto
 recorded at the same time. Scoring counts how many of the other person's words reach each
 transcript, and how much of your script survives.
 
-  python scripts/nordbuds_bench.py record --buds "Nord Buds 3-95" --laptop "Digital Microphone" --speaker "Speaker"
+  python scripts/nordbuds_bench.py record --buds "Nord Buds 3" --laptop "Digital Microphone" --speaker "Speaker"
   python scripts/nordbuds_bench.py score
 """
 
@@ -139,7 +139,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     r = sub.add_parser("record")
-    r.add_argument("--buds", default="Nord Buds 3-95")
+    r.add_argument("--buds", default="Nord Buds 3")
     r.add_argument("--laptop", default="Digital Microphone")
     r.add_argument("--speaker", default="Speaker")
     r.add_argument("--seconds", type=int, default=120)
